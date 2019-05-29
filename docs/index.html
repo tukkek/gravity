@@ -49,7 +49,7 @@
         }
         
         force(){
-          if(force!=0){
+          if(force!=0&&source){
             let distance=Math.abs((source.x-this.x)*(source.x-this.x)+(source.y-this.y)*(source.y-this.y));
             this.movex+=(source.x>this.x?-force:+force)*G/distance;
             this.movey+=(source.y>this.y?-force:+force)*G/distance;
@@ -69,7 +69,7 @@
         canvas.fillStyle='black'
         canvas.fillRect(0,0,width,height);
         for(let s of STARS){
-          if(force!=0) s.force(source);
+          s.force(source);
           canvas.fillStyle=s.color;
           canvas.fillRect(Math.round(s.x),Math.round(s.y),1,1);
         }
@@ -92,10 +92,7 @@
       
       window.onmousedown=function(e){force=e.button==0?+1:-1;}
       window.onmouseup=function(e){force=0;}
-      window.onmousemove=function(e){
-        source.x=e.clientX;
-        source.y=e.clientY;
-      }
+      window.onmousemove=function(e){source={x:e.clientX,y:e.clientY};}
       window.oncontextmenu=function(e){e.preventDefault();}
       window.ontouchstart=window.onmousedown;
       window.ontouchend=window.onmouseup;
