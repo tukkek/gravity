@@ -90,13 +90,18 @@
         setInterval(simulate,TICK);
       }
       
-      window.onmousedown=function(e){force=e.button==0?+1:-1;}
+      window.onmousedown=function(e){force=e.button==2?-1:+1;}
       window.onmouseup=function(e){force=0;}
       window.onmousemove=function(e){source={x:e.clientX,y:e.clientY};}
       window.oncontextmenu=function(e){e.preventDefault();}
-      window.ontouchstart=window.onmousedown;
+      window.ontouchstart=function(e){
+        window.onmousedown(e);
+        window.ontouchmove(e);
+      }
       window.ontouchend=window.onmouseup;
-      window.ontouchmove=window.onmousemove;
+      window.ontouchmove=function(e){
+        window.onmousemove(e.touches[0]);
+      }
     </script>
   </head>
   <body onload='generate();'>
