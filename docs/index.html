@@ -39,10 +39,10 @@
           x+=movex;
           if(x>width){
             x=width-(x-width);
-            movex*=-1;
+            movex*=-2;
           }else if(x<0){
             x*=-1;
-            movex*=-1;
+            movex*=-2;
           }
           movex/=DECAY;
           return [x,movex];
