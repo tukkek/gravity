@@ -91,14 +91,15 @@
       }
       
       window.onmousedown=function(e){force=e.button==0?+1:-1;}
-      window.ontouchstart=window.onmousedown;
       window.onmouseup=function(e){force=0;}
-      window.ontouchend=window.onmouseup;
-      window.oncontextmenu=function(e){e.preventDefault();}
       window.onmousemove=function(e){
         source.x=e.clientX;
         source.y=e.clientY;
       }
+      window.oncontextmenu=function(e){e.preventDefault();}
+      window.ontouchstart=window.onmousedown;
+      window.ontouchend=window.onmouseup;
+      window.ontouchmove=window.onmousemove;
     </script>
   </head>
   <body onload='generate();'>
