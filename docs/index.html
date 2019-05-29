@@ -19,6 +19,7 @@
       const G=100;
       const TICK=1000/30;
       const DECAY=1.01;
+      const RETURN=.0001;
       
       class Star{
         constructor(x,y){
@@ -26,6 +27,7 @@
           this.y=y;
           this.movex=0;
           this.movey=0;
+          this.origin={x:x,y:y};
           this.color=
             'rgba('+this.random()+','+this.random()+','+this.random()+',1)'
           STARS.push(this);
@@ -35,7 +37,8 @@
           return 128+Math.round(Math.random()*127);
         }
         
-        move(x,movex,width){
+        move(x,movex,origin,width){
+          movex+=(origin-x)*RETURN;
           x+=movex;
           if(x>width){
             x=width-(x-width);
@@ -54,8 +57,8 @@
             this.movex+=(source.x>this.x?-force:+force)*G/distance;
             this.movey+=(source.y>this.y?-force:+force)*G/distance;
           }
-          [this.x,this.movex]=this.move(this.x,this.movex,width);
-          [this.y,this.movey]=this.move(this.y,this.movey,height);
+          [this.x,this.movex]=this.move(this.x,this.movex,this.origin.x,width);
+          [this.y,this.movey]=this.move(this.y,this.movey,this.origin.y,height);
         }
       }
       
